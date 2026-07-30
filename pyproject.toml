@@ -3,7 +3,12 @@ name = "ASL_Keyboard"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.10"
 dependencies = [
+    "setuptools>=83.0.0",
     "sign-language-translator>=0.4.0",
+    "signlanguagerecognition>=0.0.20.1",
+    "signspell>=2.0.0",
+    "tcasl>=1.0.0",
+    "torch>=2.2.2",
 ]
