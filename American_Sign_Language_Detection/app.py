@@ -61,7 +61,7 @@ def main():
     cap.set(cv.CAP_PROP_FRAME_HEIGHT, cap_height)
 
     # Model load #############################################################
-    mp_hands = mp.solutions.hands
+    mp_hands = mp.solutions.hands  # ty:ignore[possibly-missing-submodule]
     hands = mp_hands.Hands(
         static_image_mode=use_static_image_mode,
         max_num_hands=2,
@@ -168,7 +168,7 @@ def main():
                                     )
                             img = cv.flip(img, 0)
                     except Exception as e:
-                        print(f"Issue with image {imgpath}")
+                        print(f"Issue with image {imgpath} {e}")
 
                 print(f"Num of image of the class {imglabel} is : {numofimgs}")
             mode = 1
@@ -192,9 +192,12 @@ def main():
 
                     # Hand sign classification
                     hand_sign_id = keypoint_classifier(pre_processed_landmark_list)
-                    print(keypoint_classifier_labels[hand_sign_id])
+
+                    with open("../letter", "w") as f:
+                        f.write(keypoint_classifier_labels[hand_sign_id])
+
                     # Finger gesture classification
-                    finger_gesture_id = 0
+                    finger_gesture_id = 0  # noqa: F841
 
                     # Drawing part
                     debug_image = draw_bounding_rect(use_brect, debug_image, brect)
