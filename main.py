@@ -1,6 +1,8 @@
+from time import sleep
 from pathlib import Path
 import subprocess
 import atexit
+import keyboard
 
 proc: subprocess.Popen = subprocess.Popen("echo")
 
@@ -25,5 +27,10 @@ atexit.register(cleanup_process)
 paths = Path(".env").read_text().split("\n")
 proc = subprocess.Popen([paths[0], paths[1]], cwd=paths[1].removesuffix("/app.py"))
 
+
+lastLetter = ""
+
 while True:
-    pass
+    letter = Path("letter").read_text().lower()
+    keyboard.write(letter) if lastLetter != letter else None
+    lastLetter = Path("letter").read_text().lower()
